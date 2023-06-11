@@ -38,4 +38,23 @@ routerCart.get("/:cid", async (req, res)=>{
          data: {}
         });
     }
+});
+
+routerCart.post("/:cid/product/:cid", async (req, res)=>{
+    const cartId = req.params.cid;
+    const prodId = req.params.cid;
+
+    const addItem = await cartManager.addItem(cartId, prodId);
+
+    if (addItem) {
+        return res.status(201).json(
+            {message: "product add",    
+             data: addItem
+            });
+    }else{
+        return res.status(404).json(
+            {error: "error, bad response",    
+             data: {}
+            });
+    };
 })
